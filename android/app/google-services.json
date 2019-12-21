@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "722842502606",
+    "firebase_url": "https://meducate-56c60.firebaseio.com",
+    "project_id": "meducate-56c60",
+    "storage_bucket": "meducate-56c60.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:722842502606:android:fa8dcf0a4bd39b5683179f",
+        "android_client_info": {
+          "package_name": "com.happssolutions.meducate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "722842502606-ph0rmg24e38icrsh37q6effao6nq1o4a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzBmcLozOgqce5UxfOlY-Goy-nzaTYFek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "722842502606-ph0rmg24e38icrsh37q6effao6nq1o4a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
