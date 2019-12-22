@@ -1,42 +1,38 @@
 import 'package:flutter/material.dart';
-import 'rootpage.dart';
-import 'auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-class Add extends StatefulWidget {
-  BaseAuth auth;
-  Add({this.auth});
-  @override
-  AddState createState() => AddState();
-
-}
-
-class AddState extends State<Add> {
-  void signOut()async{
-    try{
-      await widget.auth.signOut();
-      setState(() {
-        RootPageState.authStatus = AuthStatus.notSignedIn;
-      });
-    }catch(e){
-      debugPrint(e.toString());
-    }
-  }
-  final formKey = GlobalKey<FormState>();
-  String content;
+import 'rootpage.dart';
+class Edit extends StatefulWidget {
   String title;
   String subtitle;
+  String content;
+  Edit({this.title, this.subtitle, this.content});
+  @override
+  EditState createState() => EditState();
+}
+
+class EditState extends State<Edit> {
+  GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  TextEditingController titleEditor = new TextEditingController();
+  TextEditingController subtitleEditor = new TextEditingController();
+  TextEditingController contentEditor = new TextEditingController();
+  String title;
+  String subtitle;
+  String content;
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-        appBar: new AppBar(
-          backgroundColor: Colors.deepPurpleAccent,
-          title: Text("Add an article"),
+    titleEditor.text = widget.title;
+    subtitleEditor.text = widget.subtitle;
+    contentEditor.text = widget.content;
+      return Scaffold(
+          appBar: new AppBar(
+            backgroundColor: Colors.deepPurpleAccent,
+            title: Text("Edit your article"),
 
-        ),
+          ),
 
-        body: Container(
-          padding: EdgeInsets.all(8.0),
+          body: Container(
+            padding: EdgeInsets.all(8.0),
             child: Form(
               key: formKey,
               child: ListView(
@@ -44,43 +40,59 @@ class AddState extends State<Add> {
                   TextFormField(
                     decoration: InputDecoration(labelText: "Title"),
                     maxLength: 15,
-
+                    controller: titleEditor,
                     onSaved: (value) => title = value,
                   ),
                   TextFormField(
                     decoration: InputDecoration(labelText: "Subtitle (Small Summary of Article)"),
                     maxLength: 50,
-
+                    controller: subtitleEditor,
                     onSaved: (value) => subtitle = value,
                   ),
                   TextFormField(
                     decoration: InputDecoration(labelText: "Content"),
                     maxLines: null,
+                    controller: contentEditor,
                     onSaved: (value) => content = value,
                   ),
                   RaisedButton(
                     child: Text("Submit"),
 
-                    onPressed: submit,
+                    onPressed: reSubmit,
                   ),
                 ],
               ),
             ),
-        )
-    );
+          )
+      );
   }
 
-  void submit() async{
+  void reSubmit() async{
+    debugPrint('starting now');
     final form = formKey.currentState;
     form.save();
     QuerySnapshot snapshot = await Firestore.instance.collection('users').where('uid', isEqualTo: RootPageState.uid).getDocuments();
     String name = snapshot.documents[0].data['name'];
     List articleList = new List();
-    if(snapshot.documents[0].data['articles'] != null){
-      articleList.addAll(snapshot.documents[0].data['articles']);
+//    if(snapshot.documents[0].data['articles'] != null){
+//      articleList.addAll(snapshot.documents[0].data['articles']);
+//    }
+    int length = snapshot.documents[0].data['articles'] != null ? snapshot.documents[0].data['articles'].length : 0;
+    int i = 0;
+    int delIndex = snapshot.documents[0].data['articles'].indexOf(widget.title);
+    //debugPrint('delIndex $delIndex');
+    while(snapshot.documents[0].data['articles'] != null && i < length){
+      if(i == delIndex){
+        i++;
+        continue;
+      }
+      articleList.add(snapshot.documents[0].data['articles'][i]);
+      i++;
     }
     articleList.add(title);
-    Firestore.instance.collection('articles').add({
+    QuerySnapshot snap = await Firestore.instance.collection('articles').where('author',isEqualTo: name).where('title',isEqualTo: widget.title).getDocuments();
+
+    Firestore.instance.collection('articles').document(snap.documents[0].documentID).setData({
       'approved' : false,
       'author' : name,
       'title' : title,

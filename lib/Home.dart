@@ -24,6 +24,7 @@ class HomeState extends State<Home> {
       setState(() {
         RootPageState.authStatus = AuthStatus.notSignedIn;
       });
+      Navigator.pop(context);
     }catch(e){
       debugPrint(e.toString());
     }
@@ -96,10 +97,10 @@ class HomeState extends State<Home> {
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, int index){
                 return ListTile(
-                  title: snapshot.data.documents[index].data['title'],
-                  subtitle: snapshot.data.documents[index].data['subtitle'],
+                  title: Text(snapshot.data.documents[index].data['title']),
+                  subtitle: Text(snapshot.data.documents[index].data['subtitle']),
                   onTap: (){
-                    return Article(auth: widget.auth, title: snapshot.data.documents[index].data['title'], content: snapshot.data.documents[index].data['content'], name: snapshot.data.documents[index].data['name']);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Article(auth: widget.auth, title: snapshot.data.documents[index].data['title'], content: snapshot.data.documents[index].data['content'], name: snapshot.data.documents[index].data['author'])));
                   },
                 );
             }

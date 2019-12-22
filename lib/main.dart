@@ -9,6 +9,9 @@ void main(){
       home: new Home(),
       title: "Meducate",
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Colors.deepPurpleAccent,
+      ),
     ),
   );
 }

@@ -35,7 +35,8 @@ class ArticleState extends State<Article> {
       body: SingleChildScrollView(
         child: Column(
               children: <Widget>[
-                Text(widget.name, textAlign: TextAlign.center, style: TextStyle(fontFamily: "Serif", fontSize: 25.0)),
+                Padding(padding: EdgeInsets.only(top: 8.0)),
+                Text('By: '+widget.name, textAlign: TextAlign.center, style: TextStyle(fontFamily: "Serif", fontSize: 15.0)),
                 Container(
                     padding: EdgeInsets.all(8.0),
                     child: Text(widget.content, textAlign: TextAlign.center, style: TextStyle(fontFamily: "Serif", fontSize: 25.0))
