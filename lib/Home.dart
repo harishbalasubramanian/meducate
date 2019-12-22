@@ -42,15 +42,7 @@ class HomeState extends State<Home> {
               body: Center(child: CircularProgressIndicator(),)
           );
         }
-        if(snapshot.data.documents.length == 0){
-          return Scaffold(
-              appBar: AppBar(
-                title: Text("Loading"),
-                backgroundColor: Colors.deepPurpleAccent,
-              ),
-              body: Center(child: CircularProgressIndicator(),)
-          );
-        }
+
         return Scaffold(
           appBar: new AppBar(
             backgroundColor: Colors.deepPurpleAccent,
@@ -100,7 +92,7 @@ class HomeState extends State<Home> {
               ],
             ),
           ) : null,
-          body: ListView.builder(
+          body: snapshot.data.documents.length > 0 ? ListView.builder(
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, int index){
                 return ListTile(
@@ -111,7 +103,7 @@ class HomeState extends State<Home> {
                   },
                 );
             }
-          ),
+          ) :Center(child: Text("No articles have been uploaded yet")),
         );
       }
     );
