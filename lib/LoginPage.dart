@@ -69,7 +69,7 @@ class LoginPageState extends State<LoginPage> {
     return !isLoading ? Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurpleAccent,
-        title: Text("Login (For Writers or Editors only)"),
+        title: Text("Login (For Writers only)"),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
@@ -83,7 +83,7 @@ class LoginPageState extends State<LoginPage> {
     ): Scaffold(
         appBar: AppBar(
           title: Text("Loading"),
-          automaticallyImplyLeading: false,
+          leading: Container(),
           backgroundColor: Colors.deepPurpleAccent,
         ),
         body: Center(child: CircularProgressIndicator(),)

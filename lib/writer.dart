@@ -96,7 +96,12 @@ class WriterState extends State<Writer> {
               child: CircularProgressIndicator()
             );
           }
-          if(snapshot.data.documents[0].data['articles'].length == 0){
+          if(snapshot.data.documents[0].data['articles'] == null ){
+            return Center(
+              child: Text('You have not uploaded any articles'),
+            );
+          }
+          else if(snapshot.data.documents[0].data['articles'].length == 0  ){
             return Center(
               child: Text('You have not uploaded any articles'),
             );

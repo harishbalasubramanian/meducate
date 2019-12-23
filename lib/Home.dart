@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'LoginPage.dart';
 import 'auth.dart';
 import 'rootpage.dart';
+import 'viewarticles.dart';
+import 'viewwriters.dart';
 import 'writer.dart';
 import 'editor.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -85,6 +87,22 @@ class HomeState extends State<Home> {
                       }
                     }
                 ),
+                RootPageState.status == Status.admin ? ListTile(
+                    leading: Icon(Icons.settings),
+                    title: Text("View Writers"),
+                    onTap: (){
+                      Navigator.pop(context);
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => ViewWriters(auth: widget.auth)));
+                    }
+                ) : Container(),
+                RootPageState.status == Status.admin ? ListTile(
+                    leading: Icon(Icons.apps),
+                    title: Text("View All Articles"),
+                    onTap: (){
+                      Navigator.pop(context);
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => ViewArticles(auth: widget.auth)));
+                    }
+                ) : Container(),
                 ListTile(
                   leading: Icon(Icons.exit_to_app),
                   title: Text("Sign Out"),
@@ -97,10 +115,10 @@ class HomeState extends State<Home> {
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, int index){
                 return ListTile(
-                  title: Text(snapshot.data.documents[index].data['title']),
-                  subtitle: Text(snapshot.data.documents[index].data['subtitle']),
+                  title: Text(snapshot.data.documents[snapshot.data.documents.length - 1 -index].data['title']),
+                  subtitle: Text(snapshot.data.documents[snapshot.data.documents.length - 1 - index].data['subtitle']),
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Article(auth: widget.auth, title: snapshot.data.documents[index].data['title'], content: snapshot.data.documents[index].data['content'], name: snapshot.data.documents[index].data['author'])));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Article(auth: widget.auth, title: snapshot.data.documents[snapshot.data.documents.length - 1 - index].data['title'], content: snapshot.data.documents[snapshot.data.documents.length - 1 - index].data['content'], name: snapshot.data.documents[snapshot.data.documents.length - 1 - index].data['author'])));
                   },
                 );
             }
