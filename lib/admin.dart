@@ -33,7 +33,7 @@ class AdminState extends State<Admin> {
         RootPageState.authStatus = AuthStatus.notSignedIn;
       });
       Navigator.pop(context);
-      Navigator.pop(context);
+      Navigator.push(context, MaterialPageRoute(builder: (context)=>Home(auth: widget.auth)));
     }catch(e){
       debugPrint(e.toString());
     }
