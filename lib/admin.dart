@@ -26,20 +26,25 @@ class Admin extends StatefulWidget {
 }
 
 class AdminState extends State<Admin> {
+  GlobalKey<ScaffoldState> scaffold = new GlobalKey<ScaffoldState>();
   void signOut()async{
     try{
       await widget.auth.signOut();
       setState(() {
         RootPageState.authStatus = AuthStatus.notSignedIn;
       });
+
       Navigator.pop(context);
       Navigator.push(context, MaterialPageRoute(builder: (context)=>Home(auth: widget.auth)));
     }catch(e){
       debugPrint(e.toString());
     }
   }
+
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurpleAccent,
@@ -57,6 +62,12 @@ class AdminState extends State<Admin> {
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
+            Container(
+              width: 200.0,
+                height: 200.0,
+                child: Image.asset("images/MLogo.png")
+            ),
+            Divider(),
             ListTile(
               leading: Icon(Icons.home),
               title: Text("Go to Home"),

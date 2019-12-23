@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'LoginPage.dart';
+//import 'LoginPage.dart';
 import 'auth.dart';
 import 'rootpage.dart';
 import 'viewarticles.dart';
@@ -63,6 +63,12 @@ class HomeState extends State<Home> {
           drawer: RootPageState.uid != '' ? Drawer(
             child: ListView(
               children: <Widget>[
+                Container(
+                    width: 200.0,
+                    height: 200.0,
+                    child: Image.asset("images/MLogo.png")
+                ),
+                Divider(),
                 ListTile(
                     leading: Icon(Icons.home),
                     title: Text('Go to home'),

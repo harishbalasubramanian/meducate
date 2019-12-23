@@ -55,6 +55,12 @@ class WriterState extends State<Writer> {
       drawer: Drawer(
         child: ListView(
           children: <Widget>[
+            Container(
+                width: 200.0,
+                height: 200.0,
+                child: Image.asset("images/MLogo.png")
+            ),
+            Divider(),
             ListTile(
               leading: Icon(Icons.home),
               title: Text("Go to Home"),

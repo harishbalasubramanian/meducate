@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'auth.dart';
-
+import 'ForgotPassword.dart';
 import 'rootpage.dart';
 class LoginPage extends StatefulWidget {
   LoginPage({this.auth,this.onSignedIn});
@@ -17,8 +17,10 @@ class LoginPageState extends State<LoginPage> {
   String email;
   String name;
   bool isLoading = false;
+  GlobalKey<ScaffoldState> scaffold = new GlobalKey<ScaffoldState>();
   String password;
   String secondPassword;
+  bool error;
   final formKey = new GlobalKey<FormState>();
   FormType formType = FormType.login;
   bool validateAndSave(){
@@ -54,15 +56,43 @@ class LoginPageState extends State<LoginPage> {
         else {
           String uid = await widget.auth.signInWithEmailAndPassword(email, password);
           debugPrint('uid $uid');
+
           setState(() {
             isLoading = false;
           });
+
         }
         widget.onSignedIn();
       }catch(e){
         debugPrint('Error $e');
+        await makeDialog(e.toString());
+        setState(() {
+          isLoading = false;
+        });
       }
     }
+  }
+  Future<void> makeDialog(String e){
+    bool a;
+    if(e == "PlatformException(exception, There is no user record corresponding to this identifier. The user may have been deleted., null)"){
+      a = true;
+    }
+    else{
+      a = false;
+    }
+    return showDialog(context: context, builder: (context){
+      return AlertDialog(
+        title: a ? Text("This user is not recognized") : Text("An error occurred"),
+        actions: <Widget>[
+          Center(child: FlatButton(
+            child: Text("OK",style: TextStyle(color: Colors.deepPurpleAccent)),
+            onPressed: (){
+              Navigator.pop(context);
+            }
+          )),
+        ],
+      );
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -112,18 +142,36 @@ class LoginPageState extends State<LoginPage> {
           },
           onSaved: (value) => email = value,
         ),
-        TextFormField(
-          decoration: new InputDecoration(labelText: 'Password'),
-          obscureText: true,
-          validator: (value) {
-            if(value.isEmpty){
-              return "Password can\'t be empty";
-            }
 
-            return null;
-          },
-          onSaved: (value) => password = value,
-        ),
+
+               TextFormField(
+                  decoration: new InputDecoration(
+                      labelText: 'Password',
+                      suffixIcon: Container(
+                        padding: EdgeInsets.only(bottom: 20.0),
+                        child: FlatButton(
+                          child: Text(
+                            "Forgot Password ?",style: TextStyle(color: Colors.deepPurpleAccent),
+                          ),
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> ForgotPassword(auth: widget.auth)));
+                          }
+                        ),
+                      ),
+                  ),
+                  obscureText: true,
+
+                  validator: (value) {
+                    if(value.isEmpty){
+                      return "Password can\'t be empty";
+                    }
+
+                    return null;
+                  },
+                  onSaved: (value) => password = value,
+                ),
+//            Text("Forgot Password ?",style: TextStyle(fontSize: 10.0),),
+
 
         RaisedButton(
           child: Text('Login', style: TextStyle(fontSize: 20.0)),
