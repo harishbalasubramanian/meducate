@@ -6,6 +6,7 @@ import 'Home.dart';
 import 'writer.dart';
 import 'viewwriters.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'article.dart';
 class ViewArticles extends StatefulWidget {
   BaseAuth auth;
   ViewArticles({this.auth});
@@ -101,19 +102,28 @@ class ViewArticlesState extends State<ViewArticles> {
           return ListView.builder(
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, int i){
-
+              int index = snapshot.data.documents.length - 1 - i;
               return ListTile(
-                title: Text(snapshot.data.documents[i].data['title']),
+                title: Text(snapshot.data.documents[index].data['title']),
                 trailing: Switch(
                     activeColor: Colors.deepPurpleAccent,
-                    value: snapshot.data.documents[i].data['approved'],
+                    value: snapshot.data.documents[index].data['approved'],
                     onChanged: (bool value)async{
-                      DocumentReference ref = Firestore.instance.collection('articles').document(snapshot.data.documents[i].documentID);
+                      DocumentReference ref = Firestore.instance.collection('articles').document(snapshot.data.documents[index].documentID);
                       ref.updateData({
                         'approved' : value
                       });
                     }
                 ),
+                onTap: (){
+
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Article(
+                    auth: widget.auth,
+                    title: snapshot.data.documents[index].data['title'],
+                    content: snapshot.data.documents[index].data['content'],
+                    name: snapshot.data.documents[index].data['author']
+                  )));
+                }
               );
             },
           );

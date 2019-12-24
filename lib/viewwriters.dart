@@ -101,13 +101,14 @@ class ViewWritersState extends State<ViewWriters> {
           return ListView.builder(
             itemCount: snapshot.data.documents.length,
             itemBuilder: (context, int i){
+              int index = snapshot.data.documents.length - 1 - i;
               return ListTile(
-                title: Text(snapshot.data.documents[i].data['name']),
+                title: Text(snapshot.data.documents[index].data['name']),
                 trailing: Switch(
                   activeColor: Colors.deepPurpleAccent,
-                  value: snapshot.data.documents[i].data['approved'],
+                  value: snapshot.data.documents[index].data['approved'],
                   onChanged: (bool value)async{
-                    Firestore.instance.collection('users').where('uid', isEqualTo: snapshot.data.documents[i].data['uid']).getDocuments().then((docs){
+                    Firestore.instance.collection('users').where('uid', isEqualTo: snapshot.data.documents[index].data['uid']).getDocuments().then((docs){
                       DocumentReference ref = docs.documents[0].reference;
                       ref.updateData({
                         'approved' : value,
