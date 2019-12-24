@@ -43,6 +43,11 @@ class NopeState extends State<Nope> {
             drawer: Drawer(
               child: ListView(
                 children: <Widget>[
+                  Container(
+                      width: 200.0,
+                      height: 200.0,
+                      child: Image.asset("images/MLogo.png")
+                  ),
                   ListTile(
                     title: Text("Go to home"),
                     leading: Icon(Icons.home),
