@@ -173,13 +173,21 @@ class LoginPageState extends State<LoginPage> {
 //            Text("Forgot Password ?",style: TextStyle(fontSize: 10.0),),
 
 
-        RaisedButton(
-          child: Text('Login', style: TextStyle(fontSize: 20.0)),
+        RawMaterialButton(
+          child: Text('Login', style: TextStyle(fontSize: 16.5,color: Colors.white)),
           onPressed: validateAndSubmit,
+          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+          fillColor: Colors.deepPurpleAccent,
+          elevation: 0.0,
+          padding: EdgeInsets.all(10.0),
         ),
-        RaisedButton(
-          child: Text('Create an account',style: TextStyle(fontSize: 20.0),),
+        RawMaterialButton(
+          child: Text('Create an account',style: TextStyle(fontSize: 16.5,color: Colors.white),),
           onPressed: moveToRegister,
+          shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+          fillColor: Colors.deepPurpleAccent,
+          elevation: 0.0,
+          padding: EdgeInsets.all(10.0),
         ),
       ];
     }
@@ -240,13 +248,21 @@ class LoginPageState extends State<LoginPage> {
         },
         onSaved: (value) => secondPassword = value,
       ),
-      RaisedButton(
-        child: Text('Create Account', style: TextStyle(fontSize: 20.0)),
+      RawMaterialButton(
+        child: Text('Create Account', style: TextStyle(fontSize: 16.5,color: Colors.white)),
         onPressed: validateAndSubmit,
+        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+        fillColor: Colors.deepPurpleAccent,
+        elevation: 0.0,
+        padding: EdgeInsets.all(10.0),
       ),
-      RaisedButton(
-        child: Text('Login to Account',style: TextStyle(fontSize: 20.0),),
+      RawMaterialButton(
+        child: Text('Login to Account',style: TextStyle(fontSize: 16.5,color: Colors.white),),
         onPressed: moveToLogin,
+        shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+        fillColor: Colors.deepPurpleAccent,
+        elevation: 0.0,
+        padding: EdgeInsets.all(10.0),
       ),
     ];
   }

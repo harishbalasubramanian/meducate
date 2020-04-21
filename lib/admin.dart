@@ -123,7 +123,12 @@ class AdminState extends State<Admin> {
                   child: CircularProgressIndicator()
               );
             }
-            if(snapshot.data.documents[0].data['articles'] == null ){
+            if(snapshot.data == null){
+              return Center(
+                  child: CircularProgressIndicator()
+              );
+            }
+            if(snapshot.data.documents == null || snapshot.data.documents.length == 0 || snapshot.data.documents[0].data['articles'] == null ){
               return Center(
                 child: Text('You have not uploaded any articles'),
               );

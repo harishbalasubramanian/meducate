@@ -58,9 +58,12 @@ class AddState extends State<Add> {
                     maxLines: null,
                     onSaved: (value) => content = value,
                   ),
-                  RaisedButton(
-                    child: Text("Submit"),
-
+                  RawMaterialButton(
+                    child: Text("Submit",style: TextStyle(fontSize: 16.5, color: Colors.white)),
+                    shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                    fillColor: Colors.deepPurpleAccent,
+                    elevation: 0.0,
+                    padding: EdgeInsets.all(10.0),
                     onPressed: submit,
                   ),
                 ],
